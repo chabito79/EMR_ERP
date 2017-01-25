@@ -1,0 +1,78 @@
+<!-- VIENE DEL ACCOUNTS > GENERAL LEDGER -->
+<!-- <div style="margin-bottom: 7px;" class="text-center">
+	{%= frappe.boot.letter_heads[filters.letter_head || frappe.defaults.get_default("letter_head")] %}
+</div> -->
+<h2 class="text-center">{%= __("Recibo de Pago de Comisiones") %}</h2>
+<!-- <h4 class="text-center">{%= (filters.party || filters.account) && ((filters.party || filters.account) + ", ")  || "" %} {%= filters.company %}</h4>
+ --> <h5 class="text-center">
+ 	{%= (filters.doctor) %} {%= data[0]["Doctor"] %} 
+	{%= __("   |   Fecha de Corte: ") %}
+	{%= dateutil.str_to_user(filters.date) %}
+</h5>  
+<hr>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th style="width: 10%">{%=(" ") %}</th>
+			<th style="width: 10%">{%= ("Treatment Plan") %}</th>
+			<th style="width: 20%">{%= ("Patient") %}</th>
+			<th style="width: 35%">{%= ("Procedure") %}</th>
+			<th style="width: 8%">{%= ("Commision") %}</th>
+			<th style="width: 5%">{%= ("Qty") %}</th>
+			<th style="width: 22%">{%= ("Total") %}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for(var i=0, l=data.length; i<l; i++) { %}
+			<tr>
+			{% if(data[i][("Date")]) { %}
+				<td>{%= dateutil.str_to_user(data[i][("Created")],'yyyy-mm-dd') %}</td>
+				<td>{%= data[i][("Treatment Plan")] %}</td>
+				<td>{%= data[i][("Patient")] %}</td>
+				<td>{%= data[i][("Procedure")] %}</td>
+				<td style="text-align: right">{%= format_currency(data[i][("Commision")]) %}</td>
+				<td style="text-align: right">{%= data[i][("Qty")] %}</td>
+				<td style="text-align: right"><b>{%= format_currency(data[i][("Total")]) %}</b></td>
+			{% } else { %}
+				<td><b>Subtotal</b></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td style="text-align: right">
+					{%= data[i][__("Treatment Plan")] && format_currency(data[i][__("Commision")]) %}</td>
+				<td style="text-align: right">
+					{%= data[i][__("Treatment Plan")] && data[i][__("Qty")] %}</td>
+				<td style="text-align: right"><b>
+					{%= data[i][__("Treatment Plan")] && format_currency(data[i][__("Total")]) %}</b></td>
+			{% } %}
+			</tr>
+		{% } %}
+
+		<tr>
+			<td><b>Deducciones</b></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td style="text-align: right">- $130.00</td>
+		</tr>
+		<tr>
+			<td><b>Total</b></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td style="text-align: right"></td>
+		</tr>
+	</tbody>
+</table>
+<br>
+<p class="text-center">_______________________________________________</p>
+<p class="text-center"><b>{%= data[0]["Doctor"] %}</b> </p>
+<br>
+<p class="text-center">En mi calidad de socio cooperativista, recibí de Sani Dental Group, S.C. de R.L. de C.V.  la  cantidad que ampara el  presente recibo, de conformidad con la cláusula trigésimo primera y demás aplicables de los estatutos de la Sociedad Cooperativa, estando conforme con las percepciones y deducciones que en el aparecen especificadas declarando además que a la fecha no se me adeuda cantidad alguna por ningún concepto.</p>
+<br>
+<br>
+<p class="text-right text-muted">Impreso {%= dateutil.str_to_user(dateutil.get_datetime_as_string()) %}</p>

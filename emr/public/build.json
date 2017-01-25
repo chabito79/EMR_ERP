@@ -1,0 +1,8 @@
+{
+	"css/emr.css": [
+		"public/css/chosen.min.css"
+	],
+	"js/emr.min.js": [
+		"public/js/chosen.jquery.min.js"
+	]
+}

@@ -1,0 +1,57 @@
+<!-- VIENE DEL ACCOUNTS > GENERAL LEDGER -->
+<!-- <div style="margin-bottom: 7px;" class="text-center">
+	{%= frappe.boot.letter_heads[filters.letter_head || frappe.defaults.get_default("letter_head")] %}
+</div> -->
+<h2 class="text-center">{%= __("Comisiones Doctor") %}</h2>
+<!-- <h4 class="text-center">{%= (filters.party || filters.account) && ((filters.party || filters.account) + ", ")  || "" %} {%= filters.company %}</h4>
+ --> <h5 class="text-center">
+ 	{%= (filters.doctor) %} {%= data[0]["Doctor"] %} 
+	{%= __("   |   Fecha de Corte: ") %}
+	{%= dateutil.str_to_user(filters.date) %}
+</h5>  
+<hr>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th style="width: 10%">{%=("Date") %}</th>
+			<th style="width: 10%">{%= ("Treatment Plan") %}</th>
+			<th style="width: 20%">{%= ("Patient") %}</th>
+			<th style="width: 35%">{%= ("Procedure") %}</th>
+			<th style="width: 8%">{%= ("Commision") %}</th>
+			<th style="width: 5%">{%= ("Qty") %}</th>
+			<th style="width: 22%">{%= ("Total") %}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for(var i=0, l=data.length; i<l; i++) { %}
+			<tr>
+			{% if(data[i][("Date")]) { %}
+				<td>{%= dateutil.str_to_user(data[i][("Date")],'yyyy-mm-dd') %}</td>
+				<td>{%= data[i][("Treatment Plan")] %}</td>
+				<td>{%= data[i][("Patient")] %}</td>
+				<td>{%= data[i][("Procedure")] %}</td>
+				<td style="text-align: right">{%= format_currency(data[i][("Commision")]) %}</td>
+				<td style="text-align: right">{%= data[i][("Qty")] %}</td>
+				<td style="text-align: right"><b>{%= format_currency(data[i][("Total")]) %}</b></td>
+			{% } else { %}
+				<td><b>Subtotal</b></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td style="text-align: right">
+					{%= data[i][__("Treatment Plan")] && format_currency(data[i][__("Commision")]) %}</td>
+				<td style="text-align: right">
+					{%= data[i][__("Treatment Plan")] && data[i][__("Qty")] %}</td>
+				<td style="text-align: right"><b>
+					{%= data[i][__("Treatment Plan")] && format_currency(data[i][__("Total")]) %}</b></td>
+			{% } %}
+			</tr>
+		{% } %}
+
+		
+	</tbody>
+</table>
+<br>
+<br>
+<br>
+<p class="text-right text-muted">Impreso {%= dateutil.str_to_user(dateutil.get_datetime_as_string()) %}</p>

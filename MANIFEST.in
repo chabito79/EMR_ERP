@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include emr *.css
+recursive-include emr *.csv
+recursive-include emr *.html
+recursive-include emr *.ico
+recursive-include emr *.js
+recursive-include emr *.json
+recursive-include emr *.md
+recursive-include emr *.png
+recursive-include emr *.py
+recursive-include emr *.svg
+recursive-include emr *.txt
+recursive-exclude emr *.pyc
